@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ game.name }} - Обновления</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: url('static/images/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-left {
+            flex: 1;
+        }
+
+        .nav-left a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .game-details {
+            max-width: 800px;
+            margin: 40px auto;
+            background: rgba(0, 0, 0, 0.85);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+        }
+
+        .game-details img.game-icon {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .updates {
+            margin-top: 30px;
+        }
+
+        .updates h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #FFD700;
+        }
+
+        .update-item {
+            border-bottom: 1px solid #555;
+            padding: 15px 0;
+        }
+
+        .update-item:last-child {
+            border-bottom: none;
+        }
+
+        .update-date {
+            font-size: 14px;
+            color: #bbb;
+            margin-bottom: 10px;
+        }
+
+        .update-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+
+        .update-content {
+            font-size: 16px;
+            color: #ddd;
+            margin-bottom: 10px;
+        }
+
+        .update-content p {
+            margin: 0;
+        }
+
+        .update-item a {
+            color: #4fa3ff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .update-item a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+        }
+    </style>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,ru',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-left">
+                <a href="/">Главная</a>
+            </div>
+            <div class="nav-right">
+                <div id="google_translate_element"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="game-details">
+        <h1>{{ game.name }}</h1>
+        <img src="{{ game.icon }}" alt="{{ game.name }}" class="game-icon">
+        <p>{{ game.description }}</p>
+
+        <div class="updates">
+            <h2>Последние обновления</h2>
+            {% for update in updates %}
+                <div class="update-item">
+                    <p class="update-date">Дата публикации: {{ update.date }}</p>
+                    <p class="update-title">{{ update.title }}</p>
+                    <div class="update-content">
+                        {{ update.contents | safe }}
+                    </div>
+                    {% if update.url %}
+                        <a href="{{ update.url }}" target="_blank">Подробнее</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
